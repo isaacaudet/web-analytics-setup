@@ -100,15 +100,17 @@ import sentry from '@sentry/astro'
 export default defineConfig({
   integrations: [
     sentry({
-      dsn: import.meta.env.SENTRY_DSN,
+      dsn: process.env.SENTRY_DSN,
       sourceMapsUploadOptions: {
-        project: import.meta.env.SENTRY_PROJECT,
-        authToken: import.meta.env.SENTRY_AUTH_TOKEN,
+        project: process.env.SENTRY_PROJECT,
+        authToken: process.env.SENTRY_AUTH_TOKEN,
       },
     }),
   ],
 })
 ```
+
+> Use `process.env` here, not `import.meta.env` — `astro.config.mjs` runs in Node.js build context where `import.meta.env` is not fully populated.
 
 `sentry.client.config.ts`:
 ```ts

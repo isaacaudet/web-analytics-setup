@@ -102,7 +102,13 @@ Sentry.init({
 })
 ```
 
-For source map uploads in `vite.config.ts`:
+For source map uploads, first install the plugin:
+
+```bash
+npm install @sentry/vite-plugin --save-dev
+```
+
+Then in `vite.config.ts`:
 ```ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -121,10 +127,6 @@ export default defineConfig({
     sourcemap: true,
   },
 })
-```
-
-```bash
-npm install @sentry/vite-plugin --save-dev
 ```
 
 ---

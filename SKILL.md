@@ -36,25 +36,30 @@ Wait for all credentials before proceeding.
 
 ### 3. Set Environment Variables
 
-**Create/update `.env.local`** with the gathered values:
+**Create/update `.env.local`** using the variable names from the framework reference file (prefixes differ: `NEXT_PUBLIC_*` for Next.js, `PUBLIC_*` for Astro, `VITE_*` for React/Vite). Example structure:
 ```
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
-NEXT_PUBLIC_CLARITY_ID=xxxxxxxxxx
+# GA4
+<FRAMEWORK_PREFIX>_GA_ID=G-XXXXXXXXXX
+# Clarity
+<FRAMEWORK_PREFIX>_CLARITY_ID=xxxxxxxxxx
+# Sentry (public DSN + private build vars)
+<FRAMEWORK_PREFIX>_SENTRY_DSN=https://...@sentry.io/...
 SENTRY_DSN=https://...@sentry.io/...
-NEXT_PUBLIC_SENTRY_DSN=https://...@sentry.io/...
 SENTRY_ORG=your-org-slug
 SENTRY_PROJECT=your-project-slug
 SENTRY_AUTH_TOKEN=sntrys_...
 ```
 
+See the framework reference file for exact variable names before creating `.env.local`.
+
 **Verify `.gitignore` includes `.env.local`** — add it if missing.
 
-**Set Vercel env vars via CLI** (run each, select all environments when prompted):
+**Set Vercel env vars via CLI** using the exact names from `.env.local` (run each, select all environments when prompted):
 ```bash
-vercel env add NEXT_PUBLIC_GA_ID
-vercel env add NEXT_PUBLIC_CLARITY_ID
+vercel env add <FRAMEWORK_PREFIX>_GA_ID
+vercel env add <FRAMEWORK_PREFIX>_CLARITY_ID
 vercel env add SENTRY_DSN
-vercel env add NEXT_PUBLIC_SENTRY_DSN
+vercel env add <FRAMEWORK_PREFIX>_SENTRY_DSN
 vercel env add SENTRY_ORG
 vercel env add SENTRY_PROJECT
 vercel env add SENTRY_AUTH_TOKEN
